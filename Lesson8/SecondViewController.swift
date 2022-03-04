@@ -9,50 +9,72 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
+    // MARK: - Public properties
+    
     var circleRadius:CGFloat = 25
     var circleStep:CGFloat = 25
     var circleStartPositionX:CGFloat? = nil
     var circleStartPositionY:CGFloat? = nil
+    
+    // MARK: - IBOutlets
+    
     @IBOutlet weak var circleView: UIView!
     
-    @IBAction func swipe(_ sender: UISwipeGestureRecognizer) {
-        
-        switch sender.direction {
-        case .down:
-            if circleView.frame.origin.y < view.frame.height - circleRadius {
-                circleView.frame.origin.y += circleStep}
-        case .up:
-            if circleView.frame.origin.y >  circleRadius {
-                circleView.frame.origin.y -= circleStep
-                }
-        case .left:
-            if circleView.frame.origin.x >  circleRadius {
-                circleView.frame.origin.x -= circleStep
-        }
-        case .right:
-            if circleView.frame.origin.x <  view.frame.width - circleRadius {
-            circleView.frame.origin.x += circleStep
-            }
-        default:
-            break
-        }
-        circleView.backgroundColor = UIColor.rgb(red: CGFloat(arc4random_uniform(255)), green: CGFloat(arc4random_uniform(255)), blue:CGFloat( arc4random_uniform(255)))
-    }
-    
-    private func setupCircleView() {
-        circleStartPositionX = view.frame.width / 2 - circleRadius
-        circleStartPositionY = view.frame.height / 2 - circleRadius
-        circleView.frame = CGRect(x: circleStartPositionX ?? 0 , y: circleStartPositionY ?? 0, width: 50, height: 50)
-        circleView.backgroundColor = .red
-        circleView.layer.cornerRadius = circleRadius
-    }
+    // MARK: - Override methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCircleView()
     }
+    
+    // MARK: - Private methods
 
+    private func setupCircleView() {
+        circleStartPositionX = view.frame.width / 2 - circleRadius
+        circleStartPositionY = view.frame.height / 2 - circleRadius
+        circleView.frame = CGRect(x: circleStartPositionX ?? 0 ,
+                                  y: circleStartPositionY ?? 0,
+                                  width: circleRadius * 2,
+                                  height: circleRadius * 2)
+        circleView.backgroundColor = .red
+        circleView.layer.cornerRadius = circleRadius
+    }
+    
+    private func changeColor(){
+        circleView.backgroundColor = UIColor.rgb(red: CGFloat(arc4random_uniform(255)),
+                                                 green: CGFloat(arc4random_uniform(255)),
+                                                 blue: CGFloat( arc4random_uniform(255)))
+    }
+    
+    // MARK: - IBActions
 
+    @IBAction func swipe(_ sender: UISwipeGestureRecognizer) {
+        
+        switch sender.direction {
+        case .down:
+            if circleView.frame.origin.y < view.frame.height - circleRadius * 2 {
+                circleView.frame.origin.y += circleStep
+                changeColor()
+            }
+        case .up:
+            if circleView.frame.origin.y > circleRadius * 2 {
+                circleView.frame.origin.y -= circleStep
+                changeColor()
+                }
+        case .left:
+            if circleView.frame.origin.x > circleRadius {
+                circleView.frame.origin.x -= circleStep
+                changeColor()
+            }
+        case .right:
+            if circleView.frame.origin.x < view.frame.width - circleRadius {
+                circleView.frame.origin.x += circleStep
+                changeColor()
+            }
+        default:
+            break
+        }
+    }
 }
 
 extension UIColor {

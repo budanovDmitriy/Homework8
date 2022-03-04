@@ -49,9 +49,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nun-B9-ED2">
-                                <rect key="frame" x="157.5" y="598" width="99.5" height="31"/>
+                                <rect key="frame" x="146" y="598" width="122" height="31"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Third Game"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Additional Task"/>
                                 <connections>
                                     <segue destination="SQ0-J9-9bW" kind="push" id="ooZ-PM-nzj"/>
                                 </connections>
